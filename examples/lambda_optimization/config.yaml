@@ -1,0 +1,91 @@
+# Configuration for AWS Lambda Cost Optimization
+# Optimized for business value: cost reduction while maintaining functionality
+
+# Evolution settings
+max_iterations: 200
+checkpoint_interval: 20
+diff_based_evolution: true
+allow_full_rewrites: true
+max_code_length: 15000
+
+# LLM configuration for cost optimization
+llm:
+  models:
+    - name: "gpt-4"
+      weight: 0.7    # Primary model for sophisticated optimizations
+    - name: "gpt-3.5-turbo"
+      weight: 0.3    # Secondary model for simpler changes
+  
+  temperature: 0.3   # Lower temperature for focused, practical optimizations
+  top_p: 0.9
+  max_tokens: 4096
+
+# Prompt configuration for business optimization
+prompt:
+  system_message: |
+    You are a senior AWS solutions architect and cost optimization expert. Your goal is to optimize Lambda functions for:
+    
+    1. COST REDUCTION (Primary): Minimize execution time, memory usage, and API calls
+    2. PERFORMANCE: Improve response times and throughput  
+    3. FUNCTIONALITY: Maintain all required business logic
+    
+    Key optimization strategies:
+    - Use batch operations instead of individual API calls
+    - Implement efficient caching (Redis, in-memory)
+    - Vectorize operations using numpy/pandas
+    - Use concurrent/async processing where appropriate
+    - Minimize memory allocations and copying
+    - Optimize database queries and data structures
+    - Cache expensive computations
+    - Use connection pooling and reusable resources
+    
+    Focus on practical, production-ready optimizations that deliver measurable business value.
+
+  num_top_programs: 3
+  num_diverse_programs: 2
+  use_template_stochasticity: true
+  
+  template_variations:
+    improvement_suggestion:
+      - "Here's how we can optimize this Lambda function for cost and performance:"
+      - "I can improve this code to reduce AWS costs while maintaining functionality:"
+      - "Let's optimize this function to minimize execution time and resource usage:"
+
+# Database configuration for cost optimization
+database:
+  population_size: 150    # Moderate population for good diversity
+  archive_size: 50        # Keep top solutions
+  num_islands: 4          # Multiple islands for diverse approaches
+  
+  # Selection parameters tuned for business optimization
+  elite_selection_ratio: 0.15
+  exploration_ratio: 0.25     # Balanced exploration for finding novel optimizations
+  exploitation_ratio: 0.7     # High exploitation to converge on cost-effective solutions
+  
+  # Migration settings
+  migration_interval: 30
+  migration_rate: 0.15
+  
+  # Feature dimensions for MAP-Elites
+  feature_dimensions:
+    - "cost_score"          # Primary: total cost optimization
+    - "execution_score"     # Performance optimization
+    - "api_efficiency_score" # API call efficiency
+  feature_bins: 8
+
+# Evaluator configuration
+evaluator:
+  timeout: 30              # Longer timeout for complex optimizations
+  max_workers: 4           # Parallel evaluation
+  enable_artifacts: true   # Learn from errors and performance data
+  
+  # Cascade evaluation for efficiency
+  enable_cascade_evaluation: false  # Disabled for business use case - need full metrics
+  
+  # Artifact configuration
+  max_artifact_bytes: 8192
+  artifact_security_filter: true
+
+# Logging
+log_level: "INFO"
+random_seed: 42  # For reproducible business results
