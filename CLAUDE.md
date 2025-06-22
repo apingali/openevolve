@@ -114,3 +114,23 @@ Key configuration areas:
 - **Async patterns** throughout - use `await` for LLM calls and evaluations
 - **Error handling** via artifacts channel improves evolution quality
 - **Checkpointing** preserves complete state - always resumable
+
+## CLI Entry Points
+
+- **Main script**: `openevolve-run.py` - Primary CLI interface for running evolution
+- **Console command**: `openevolve-run` - Available after pip install (defined in pyproject.toml)
+- **Visualizer script**: `scripts/visualizer.py` - Web-based evolution tree visualization
+
+## Error Handling and Debugging
+
+- **Artifacts system**: Use `EvaluationResult.artifacts` to capture build errors, profiling data, and execution context
+- **Checkpointing**: Full state preservation every N iterations - always resumable from any checkpoint
+- **Logging**: Configurable log levels in config.yaml, outputs to `output_dir/logs/`
+- **Common issues**: Check evaluation timeouts, LLM API connectivity, and evolve block markers
+
+## Code Evolution Mechanics
+
+- **Evolution markers**: Code sections to evolve must be wrapped with `# EVOLVE-BLOCK-START` and `# EVOLVE-BLOCK-END`
+- **Diff vs rewrite**: Controlled by `diff_based_evolution` (default: true) and `allow_full_rewrites` settings
+- **MAP-Elites**: Programs stored in feature map using configurable dimensions (score, complexity)
+- **Island model**: Multiple populations evolve independently with periodic migration
